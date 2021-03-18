@@ -6,3 +6,5 @@ import pandas as pd
 st.title("Youtube Video Donwloader")
 st.subheader("Enter the URL:")
 url = st.text_input(label='URL')
+yt = YouTube(url)
+st.write(yt.title)
