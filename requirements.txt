@@ -3,3 +3,5 @@ streamlit-player
 ffmpeg
 fastai==1.0.61
 googledrivedownloader
+neptune-client
+neptune-contrib
