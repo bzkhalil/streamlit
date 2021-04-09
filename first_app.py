@@ -407,7 +407,7 @@ def main():
             progressLogger = ProgressLogger(progress_log_text)
             yt = YoutubeVolumeCreator(cfg, progressLogger)
             yt.run()
-            classifier = R3DClassifier(inferenceCondfig=cfg, st_img=st_img)
+            classifier = R3DClassifier(inferenceCondfig=cfg,progressLogger = progressLogger, st_img=st_im)
             classifier.run()
 
 #cmd = "ffmpeg -version"
