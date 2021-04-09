@@ -402,7 +402,7 @@ def main():
         if download_video:
             cfg.model_name = Models.R3D_18
             st_img = st.empty()
-            st.slider(st.slider('', 0.0, 1.0, float(event.data['played']), 0.01))
+            st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
             progress_log_text = st.empty()
             progressLogger = ProgressLogger(progress_log_text)
             yt = YoutubeVolumeCreator(cfg, progressLogger)
