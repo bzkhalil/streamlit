@@ -24,7 +24,8 @@ events = ["onProgress"]
 #event = st_player('https://youtu.be/CmSKVW1v0xM',events=events,progress_interval=500)
 url = 'https://youtu.be/CmSKVW1v0xM'
 event = st_player(url, **options, key=1)
-t = st.progress(event.data['played'])
+#t = st.progress(event.data['played'])
+t = st.slider('',0.0,1.0,float(event.data['played']),0.01)
 event
 
 
