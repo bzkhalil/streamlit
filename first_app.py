@@ -361,7 +361,7 @@ class R3DClassifier:
             #print('argmax',res)
             cl = self.inferenceConfig.i2c[res.item()]
             print('result for:',file,' is ', cl )
-        if st_img is not None:
+        if self.st_img is not None:
             frame_width = get_frame_width(self.inferenceConfig.input_dir)
             img = generate_result_image(preds,frame_width)
             self.st_img.image(img)
