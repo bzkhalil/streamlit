@@ -239,6 +239,7 @@ def run_command(args):
     try:
         result.check_returncode()
         #st.info(result.stdout)
+        return result
     except subprocess.CalledProcessError as e:
         st.error(result.stderr)
         raise e
@@ -409,5 +410,5 @@ def main():
             classifier = R3DClassifier(inferenceCondfig=cfg, st_img=st_img)
             classifier.run()
 
-cmd = "/usr/local/bin/ffmpeg -version"
+cmd = "ls -lhtr /usr/local/bin/"
 st.info(run_command(cmd.split(' ')))
