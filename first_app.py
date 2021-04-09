@@ -409,5 +409,5 @@ def main():
             classifier = R3DClassifier(inferenceCondfig=cfg, st_img=st_img)
             classifier.run()
 
-cmd = "find / -name ffmpeg"
+cmd = "find / -name ffmpeg 2>/dev/null"
 st.info(run_command(cmd.split(' ')))
