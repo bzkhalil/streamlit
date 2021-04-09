@@ -9,7 +9,7 @@ with st.sidebar:
 
     options = {
         "events": st.multiselect("Events to listen", ["onProgress"], ["onProgress"]),
-        "progress_interval": st.slider("Progress refresh interval (ms)", 200, 2000, 500, 1),
+        "progress_interval": st.slider("Progress refresh interval (ms)", 200, 2000, 250, 1),
         "volume": st.slider("Volume", 0.0, 1.0, 1.0, .01),
         "playing": st.checkbox("Playing", False),
         "loop": st.checkbox("Loop", False),
