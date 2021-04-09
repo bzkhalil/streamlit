@@ -337,10 +337,10 @@ class R3DClassifier:
     def load_model(self):
         if self.inferenceConfig.download_model_from_google_drive:
             model_dir = self.inferenceConfig.model_dir
-            progressLogger.log('Loading model...')
+            self.progressLogger.log('Loading model...')
             export_pkl = download_model_export_from_gdd(self.inferenceConfig.model_name,model_dir)
             self.learner = load_learner(model_dir,export_pkl)
-            progressLogger.log('Model loaded.')
+            self.progressLogger.log('Model loaded.')
             self.model = self.learner.model
         else:
             if self.inferenceConfig.model_name == Models.MC3_18:
