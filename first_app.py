@@ -389,39 +389,25 @@ def mkdir_ifnotexists(dir, clean=False):
 #print(model)
 #print(torch.__version__)
 
-st.subheader("Enter the URL:")
-url = st.text_input(label='URL')
-#'https://www.youtube.com/watch?v=oRQyu66zGE4'
-cfg = InferenceConfig()
-cfg.youtube_url = url
-if url != '':
-    event = st_player(cfg.youtube_url,events=['onProgress'],progress_interval=200)
-    download_video = st.button("Evaluate Video")
-    if download_video:
-        cfg.model_name = Models.R3D_18
-        st_img = st.empty()
-        #st.slider(st.slider('',0.0,1.0,float(event.data['played']),0.01))
-        progress_log_text = st.empty()
-        progressLogger = ProgressLogger(progress_log_text)
-        yt = YoutubeVolumeCreator(cfg,progressLogger)
-        yt.run()
-        classifier = R3DClassifier(inferenceCondfig=cfg,st_img=st_img)
-        classifier.run()
+def main():
+    st.subheader("Enter the URL:")
+    url = st.text_input(label='URL')
+    # 'https://www.youtube.com/watch?v=oRQyu66zGE4'
+    cfg = InferenceConfig()
+    cfg.youtube_url = url
+    if url != '':
+        event = st_player(cfg.youtube_url, events=['onProgress'], progress_interval=200)
+        download_video = st.button("Evaluate Video")
+        if download_video:
+            cfg.model_name = Models.R3D_18
+            st_img = st.empty()
+            st.slider(st.slider('', 0.0, 1.0, float(event.data['played']), 0.01))
+            progress_log_text = st.empty()
+            progressLogger = ProgressLogger(progress_log_text)
+            yt = YoutubeVolumeCreator(cfg, progressLogger)
+            yt.run()
+            classifier = R3DClassifier(inferenceCondfig=cfg, st_img=st_img)
+            classifier.run()
 
-
-#l = []
-#for i in range(0,100): l.append(0)
-#for i in range(0,100): l.append(1)
-
-#img = generate_result_image(l,400)
-
-#img.show()
-#cfg.input_dir = 'C:\\Khalil\\UFC\\abnormal'
-#cfg.input_dir = 'C:/Khalil/ML/streamlit/streamlit/frames'
-#cfg.file_pattern = 'ufc1_{:03d}.jpg'
-
-#classifier = R3DClassifier(cfg)
-#classifier.run()
-#C:\Users\eboukha\AppData\Local\Programs\Python\Python37\Scripts>streamlit run C:/Khalil/ML/streamlit/streamlit/playground.py
-
-#download_youtube_vid('https://www.youtube.com/watch?v=oRQyu66zGE4','.')
+cmd = "locate ffmpeg"
+st.info(run_command(cmd.split(' ')))
