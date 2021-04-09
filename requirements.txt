@@ -1,3 +1,4 @@
 pytube
 streamlit-player
 ffmpeg
+fastai==1.0.61
