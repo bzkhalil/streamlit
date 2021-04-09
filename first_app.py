@@ -410,5 +410,5 @@ def main():
             classifier = R3DClassifier(inferenceCondfig=cfg, st_img=st_img)
             classifier.run()
 
-cmd = "ls -lhtr /usr/local/bin/"
+cmd = "ffmpeg -version"
 st.info(run_command(cmd.split(' ')))
