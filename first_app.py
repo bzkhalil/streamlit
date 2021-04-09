@@ -1,12 +1,30 @@
-import streamlit as st
-from pytube import YouTube
 
-import numpy as np
-import pandas as pd
-st.title("Youtube Video Donwloader")
-st.subheader("Enter the URL:")
-url = st.text_input(label='URL')
-if len(url) > 10 :
-  yt = YouTube(url)
-  st.write(yt.title)
-  st.write(yt.length)
+from streamlit_player import st_player
+import streamlit as st
+
+
+
+with st.sidebar:
+    "## ⚙️ Parameters"
+
+    options = {
+        "events": st.multiselect("Events to listen", ["onProgress"], ["onProgress"]),
+        "progress_interval": st.slider("Progress refresh interval (ms)", 200, 2000, 500, 1),
+        "volume": st.slider("Volume", 0.0, 1.0, 1.0, .01),
+        "playing": st.checkbox("Playing", False),
+        "loop": st.checkbox("Loop", False),
+        "controls": st.checkbox("Controls", True),
+        "muted": st.checkbox("Muted", False),
+    }
+
+
+events = ["onProgress"]
+
+#event = st_player('https://www.youtube.com/watch?v=oRQyu66zGE4',events=events,progress_interval=500)
+#event = st_player('https://youtu.be/CmSKVW1v0xM',events=events,progress_interval=500)
+url = 'https://youtu.be/CmSKVW1v0xM'
+event = st_player(url, **options, key=1)
+t = st.progress(event.data['played'])
+event
+
+
