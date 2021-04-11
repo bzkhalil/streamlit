@@ -328,7 +328,7 @@ def generate_result_image(preds,bar_width,bar_height=16):
 
 class R3DClassifier:
 
-    def __init__(self,inferenceCondfig:InferenceConfig,progressLogger=None)#,st_img=None):
+    def __init__(self,inferenceCondfig:InferenceConfig,progressLogger=None):#,st_img=None):
         self.inferenceConfig = inferenceCondfig
         self.norm_ = Normalize4d()
         #self.st_img = st_img
