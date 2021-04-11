@@ -407,7 +407,7 @@ def main():
             yt.run()
             classifier = R3DClassifier(inferenceCondfig=cfg,progressLogger = progressLogger)#, st_img=st_img)
             preds = classifier.run()
-            frame_width = get_frame_width(self.inferenceConfig.input_dir)
+            frame_width = get_frame_width(cfg.input_dir)
             img = generate_result_image(preds,frame_width)
             event = st_player(cfg.youtube_url, events=['onProgress'], progress_interval=200)
             st.image(img)
