@@ -397,18 +397,22 @@ def main():
     cfg = InferenceConfig()
     cfg.youtube_url = url
     if url != '':
-        event = st_player(cfg.youtube_url, events=['onProgress'], progress_interval=200)
         download_video = st.button("Evaluate Video")
         if download_video:
             cfg.model_name = Models.R3D_18
+            st_pl = st.empty()
             st_img = st.empty()
-            st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
+            st_sl = st.empty()
             progress_log_text = st.empty()
             progressLogger = ProgressLogger(progress_log_text)
             yt = YoutubeVolumeCreator(cfg, progressLogger)
             yt.run()
             classifier = R3DClassifier(inferenceCondfig=cfg,progressLogger = progressLogger, st_img=st_img)
             classifier.run()
+            with st_pl:
+                event = st_player(cfg.youtube_url, events=['onProgress'], progress_interval=200)
+            with st_sl:
+                st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
 
 #cmd = "ffmpeg -version"
 #st.info(run_command(cmd.split(' ')))
