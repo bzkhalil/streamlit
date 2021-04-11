@@ -360,19 +360,17 @@ class R3DClassifier:
             preds.append(res.item())
             #print('argmax',res)
             cl = self.inferenceConfig.i2c[res.item()]
-            print('result for:',file,' is ', cl )
-        if self.st_img is not None:
-            frame_width = get_frame_width(self.inferenceConfig.input_dir)
-            img = generate_result_image(preds,frame_width)
-            self.st_img.image(img)
-
+            #print('result for:',file,' is ', cl )
+        return preds
+        
     def run(self):
         self.progressLogger.log("Loading model...")
         self.load_model()
         self.progressLogger.log("Model Loaded")
         self.progressLogger.log('Running inference...')
-        self.infer()
+        preds = self.infer()
         self.progressLogger.log('Inference done!')
+        return preds
 
 
 
@@ -400,19 +398,20 @@ def main():
         download_video = st.button("Evaluate Video")
         if download_video:
             cfg.model_name = Models.R3D_18
-            st_pl = st.empty()
-            st_img = st.empty()
-            st_sl = st.empty()
+            #st_pl = st.empty()
+            #st_img = st.empty()
+            #st_sl = st.empty()
             progress_log_text = st.empty()
             progressLogger = ProgressLogger(progress_log_text)
             yt = YoutubeVolumeCreator(cfg, progressLogger)
             yt.run()
             classifier = R3DClassifier(inferenceCondfig=cfg,progressLogger = progressLogger, st_img=st_img)
-            classifier.run()
-            with st_pl:
-                event = st_player(cfg.youtube_url, events=['onProgress'], progress_interval=200)
-            with st_sl:
-                st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
+            preds = classifier.run()
+            frame_width = get_frame_width(self.inferenceConfig.input_dir)
+            img = generate_result_image(preds,frame_width)
+            event = st_player(cfg.youtube_url, events=['onProgress'], progress_interval=200)
+            st.image(img)
+            st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
 
 #cmd = "ffmpeg -version"
 #st.info(run_command(cmd.split(' ')))
