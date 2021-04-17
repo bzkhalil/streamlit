@@ -418,4 +418,5 @@ def main():
             st.image(img)
             st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
 
-main()
+#main()
+st.write('hello')
