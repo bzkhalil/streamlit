@@ -418,6 +418,6 @@ def main():
             st.image(img)
             st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
 
-#main()
-os.makedirs('/tmp/frames')
-st.write(os.path.exists('/tmp/frames'))
+main()
+#os.makedirs('/tmp/frames')
+#st.write(os.path.exists('/tmp/frames'))
