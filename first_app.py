@@ -380,7 +380,7 @@ def mkdir_ifnotexists(dir, clean=False):
     if clean and os.path.exists(dir): shutil.rmtree(dir)
     if os.path.exists(dir):
         return
-    os.mkdir(dir)
+    os.makedirs(dir)
 
 
 
