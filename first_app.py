@@ -419,4 +419,4 @@ def main():
             st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
 
 #main()
-st.write(run_command('ls /tmp'.split([])))
+st.write(run_command('ls /tmp'.split(' ')))
