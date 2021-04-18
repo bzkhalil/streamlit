@@ -366,7 +366,7 @@ def download_model_export_from_gdd(model_name,model_dir):
 
 
 COLORs = {0:(0,255,0),1:(255,0,0)}
-
+@st.cache
 def generate_result_image(preds,bar_width,bar_height=16):
     im = Image.new('RGB', (bar_width, bar_height))
     draw = ImageDraw.Draw(im)
@@ -481,7 +481,9 @@ def main():
     # 'https://www.youtube.com/watch?v=oRQyu66zGE4'
     preds=[]
     cfg = InferenceConfig()
+    
     session_state.status
+    session_state.status += 1
     st.write(type(session_state.status))
     if url != '':
        session_state.url = url
