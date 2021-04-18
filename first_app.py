@@ -387,7 +387,7 @@ def mkdir_ifnotexists(dir, clean=False):
 #model = load_mc3_model('mc3_best_model_acc.pth')
 #print(model)
 #print(torch.__version__)
-@st.cache
+@st.cache(hash_funcs={ProgressLogger: lambda _: None})
 def get_preds(cfg,progressLogger):
     cfg.model_name = Models.R3D_18
     yt = YoutubeVolumeCreator(cfg, progressLogger)
