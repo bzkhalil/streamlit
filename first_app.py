@@ -475,8 +475,13 @@ def main():
         "## ⚙️ Interface description"
         st.markdown("This is a demo app for finetuned  model for anomaliy detection in videos, please enter a youtube URL, the demo will download the video and apply the model, "
                 "the result is shown as an image bar that represent anoly with red and normal scenes with green"
-                "a player of the vdeos is also loaded and you can follow the progress of the video with the slider"
+                "a player of the vdeos is also loaded and you can follow the progress of the video with the slider"    
                 )
+        st.markdown("Sample URLS to try:")
+        st.markdown("https://www.youtube.com/watch?v=eMATIHK2tKE")
+        st.markdown("https://www.youtube.com/watch?v=oRQyu66zGE4")
+        
+                    
         
     st.subheader("Enter the URL:")
     url = st.text_input(label='URL')
@@ -484,8 +489,6 @@ def main():
     # 'https://www.youtube.com/watch?v=oRQyu66zGE4'
     preds=[]
     
-    session_state.status
-    #session_state.status += 1
     
     if url != '':
         download_video = st.button("Evaluate Video")
