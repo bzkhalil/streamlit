@@ -461,6 +461,7 @@ def main():
     preds=[]
     cfg = InferenceConfig()
     session_state.status
+    type(session_state.status)
     if url != '':
         if session_state.status == 0:
             cfg.youtube_url = url
