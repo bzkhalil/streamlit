@@ -469,7 +469,7 @@ def main():
             progressLogger = ProgressLogger(progress_log_text)
             preds = get_preds(cfg,progressLogger)
             session_state.status = 1
-         else    
+         else:    
             frame_width = get_frame_width(cfg.input_dir)
             img = generate_result_image(preds, frame_width)
             event = st_player(cfg.youtube_url, events=['onProgress'], progress_interval=200)
