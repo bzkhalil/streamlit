@@ -19,6 +19,7 @@ import streamlit as st
 import tempfile
 import subprocess
 from streamlit_player import st_player
+import urllib.parse as urlparse
 
 try:
     import streamlit.ReportThread as ReportThread
@@ -257,15 +258,22 @@ def create_base_volumes(input_dir,output_dir,num_channels,file_pattern="frame_{:
         torch.save(data, file)
         start_frame += num_channels
 
+def get_id_from_url(url):
+    url_data = urlparse.urlparse(url)
+    query = urlparse.parse_qs(url_data.query)
+    video = query["v"][0]
+    return video
 
 
 class InferenceConfig:
-    def __init__(self):
+    def __init__(self,url):
         base_tmp_dir = tempfile.gettempdir()
+        self.vid_id = get_id_from_url(url)
+        self.youtube_url = url
         self.num_channels = 16
         self.model_name = Models.MC3_18
-        self.input_dir = os.path.join(base_tmp_dir,"frames")
-        self.volume_dir = os.path.join(base_tmp_dir,"volumes")
+        self.input_dir = os.path.join(base_tmp_dir,"frames",self.vid_id)
+        self.volume_dir = os.path.join(base_tmp_dir,"volumes",self.vid_id)
         self.clean_volume_dir = True
         self.model_fn = "mc3_best_model_acc.pth"
         self.file_pattern = "frame_{:06d}.png"
@@ -321,7 +329,7 @@ class YoutubeVolumeCreator:
         mkdir_ifnotexists(download_dir)
         yt = YouTube(url)
         video = yt.streams
-        fn = strftime("video_%a_%d_%b_%Y_%H_%M_%S", gmtime())
+        fn = self.inferenceConfig.vid_id + ".mp4"
         vid_fn = video.get_highest_resolution().download(filename=fn,output_path=download_dir)
         self.vid_file =  os.path.abspath(os.path.join(download_dir,vid_fn))
         self.progressLogger.log("URL Downloaded in "+self.vid_file)
@@ -452,9 +460,9 @@ def get_preds(cfg,progressLogger):
     preds = classifier.run()
     return preds
 
-def display_player(cfg,session_state):
+def display_player(session_state):
     preds = session_state.preds
-    frame_width = get_frame_width(cfg.input_dir)
+    frame_width = get_frame_width(session_state.input_dir)
     img = generate_result_image(preds, frame_width)
     event = st_player( session_state.url, events=['onProgress'], progress_interval=500)
     st.image(img)
@@ -465,26 +473,28 @@ def display_player(cfg,session_state):
 def main():
     st.subheader("Enter the URL:")
     url = st.text_input(label='URL')
-    session_state = get(status = 0, url='',preds=[])
+    session_state = get(status = 0, url='',preds=[],input_dir = '')
     # 'https://www.youtube.com/watch?v=oRQyu66zGE4'
     preds=[]
-    cfg = InferenceConfig()
+    
     session_state.status
     #session_state.status += 1
     
     if url != '':
         download_video = st.button("Evaluate Video")
         if download_video:
-            cfg.youtube_url = url
+            cfg = InferenceConfig(url)
+            #cfg.youtube_url = url
             session_state.url = url
             progress_log_text = st.empty()
             progressLogger = ProgressLogger(progress_log_text)
             preds = get_preds(cfg,progressLogger)
             session_state.preds = preds
+            session_state.input_dir = cfg.input_dir
             session_state.status = 1
     
     if session_state.status == 1:
-        display_player(cfg,session_state)
+        display_player(session_state)
 
     
 main()
