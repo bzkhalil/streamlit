@@ -483,16 +483,19 @@ def main():
     cfg = InferenceConfig()
     session_state.status
     #session_state.status += 1
+    
     if url != '':
-        if session_state.status == 0:
+        download_video = st.button("Evaluate Video")
+        if download_video:
             cfg.youtube_url = url
             session_state.url = url
             progress_log_text = st.empty()
             progressLogger = ProgressLogger(progress_log_text)
             preds = get_preds(cfg,progressLogger)
             session_state.status = 1
-        else:
-            display_player(cfg,session_state,preds)
+    
+    if session_state.status == 1:
+        display_player(cfg,session_state,preds)
 
     
 main()
