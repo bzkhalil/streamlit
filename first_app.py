@@ -419,5 +419,7 @@ def main():
             st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
 
 #main()
-os.makedirs('/tmp/frames')
-#st.write(os.path.exists('/tmp/frames'))
+#os.makedirs('/tmp/frames')
+#cfg = InferenceConfig()
+#mkdir_ifnotexists(cfg.input_dir)
+st.write(os.path.exists('/tmp/frames'))
