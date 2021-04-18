@@ -471,6 +471,13 @@ def display_player(session_state):
 
     
 def main():
+    with st.sidebar:
+        "## ⚙️ Interface description"
+        st.markdown("This is a demo app for finetuned  model for anomaliy detection in videos, please enter a youtube URL, the demo will download the video and apply the model, "
+                "the result is shown as an image bar that represent anoly with red and normal scenes with green"
+                "a player of the vdeos is also loaded and you can follow the progress of the video with the slider"
+                )
+        
     st.subheader("Enter the URL:")
     url = st.text_input(label='URL')
     session_state = get(status = 0, url='',preds=[],input_dir = '')
