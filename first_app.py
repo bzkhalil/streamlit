@@ -452,7 +452,28 @@ def get_preds(cfg,progressLogger):
     preds = classifier.run()
     return preds
 
+def display_player(cfg,session_state):
+    frame_width = get_frame_width(cfg.input_dir)
+    img = generate_result_image(preds, frame_width)
+    event = st_player( session_state.url, events=['onProgress'], progress_interval=200)
+    st.image(img)
+    st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
+    session_state.status
 
+'''
+        
+        if session_state.status == 0:
+            cfg.youtube_url = url
+            session_state.url = url
+            progress_log_text = st.empty()
+            progressLogger = ProgressLogger(progress_log_text)
+            preds = get_preds(cfg,progressLogger)
+            session_state.status = 1
+        else:
+            display_player(cfg,session_state)
+
+'''
+    
 def main():
     st.subheader("Enter the URL:")
     url = st.text_input(label='URL')
@@ -463,21 +484,9 @@ def main():
     session_state.status
     st.write(type(session_state.status))
     if url != '':
-        if session_state.status == 0:
-            cfg.youtube_url = url
-            session_state.url = url
-            progress_log_text = st.empty()
-            progressLogger = ProgressLogger(progress_log_text)
-            preds = get_preds(cfg,progressLogger)
-            session_state.status = 1
-        else:    
-            frame_width = get_frame_width(cfg.input_dir)
-            img = generate_result_image(preds, frame_width)
-            event = st_player( session_state.url, events=['onProgress'], progress_interval=200)
-            st.image(img)
-            st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
-            session_state.status
-
+       session_state.url = url
+       display_player(cfg,session_state)
+    
 main()
 #os.makedirs('/tmp/frames')
 #cfg = InferenceConfig()
