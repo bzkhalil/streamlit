@@ -452,7 +452,7 @@ def get_preds(cfg,progressLogger):
     preds = classifier.run()
     return preds
 
-def display_player(cfg,session_state):
+def display_player(cfg,session_state,preds):
     frame_width = get_frame_width(cfg.input_dir)
     img = generate_result_image(preds, frame_width)
     event = st_player( session_state.url, events=['onProgress'], progress_interval=200)
@@ -470,7 +470,7 @@ def display_player(cfg,session_state):
             preds = get_preds(cfg,progressLogger)
             session_state.status = 1
         else:
-            display_player(cfg,session_state)
+            display_player(cfg,session_state,preds)
 
 '''
     
@@ -485,7 +485,7 @@ def main():
     st.write(type(session_state.status))
     if url != '':
        session_state.url = url
-       display_player(cfg,session_state)
+       display_player(cfg,session_state,preds)
     
 main()
 #os.makedirs('/tmp/frames')
