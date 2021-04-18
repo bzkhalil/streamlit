@@ -460,7 +460,7 @@ def main():
     # 'https://www.youtube.com/watch?v=oRQyu66zGE4'
     preds=[]
     cfg = InferenceConfig()
-    session_status.status
+    session_state.status
     if url != '':
         if session_state.status == 0:
             cfg.youtube_url = url
