@@ -455,7 +455,7 @@ def get_preds(cfg,progressLogger):
 def display_player(cfg,session_state,preds):
     frame_width = get_frame_width(cfg.input_dir)
     img = generate_result_image(preds, frame_width)
-    event = st_player( session_state.url, events=['onProgress'], progress_interval=200)
+    event = st_player( session_state.url, events=['onProgress'], progress_interval=500)
     st.image(img)
     st.slider('', 0.0, 1.0, float(event.data['played']), 0.01)
     session_state.status
