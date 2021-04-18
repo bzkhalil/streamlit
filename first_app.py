@@ -461,8 +461,9 @@ def main():
     preds=[]
     cfg = InferenceConfig()
     if url != '':
-        if url != session_state.url:
+        if session_state.status == 0:
             cfg.youtube_url = url
+            session_state.url = url
             progress_log_text = st.empty()
             progressLogger = ProgressLogger(progress_log_text)
             preds = get_preds(cfg,progressLogger)
